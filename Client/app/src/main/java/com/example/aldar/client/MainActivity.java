@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends Activity
 {
@@ -17,10 +23,34 @@ public class MainActivity extends Activity
     private EditText editIp;
     private EditText editPort;
     private EditText editInterval;
+    private TextView textViewXyValue;
+    private TextView textViewXzValue;
+    private TextView textViewYzValue;
 
     private SensorManager sensorManager;
     private NetworkTask networkTask;
     private AccelerometerListener accelerometerListener;
+
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            textViewXyValue.setText(String.valueOf(accelerometerListener.xyAngle));
+            textViewXzValue.setText(String.valueOf(accelerometerListener.xzAngle));
+            textViewYzValue.setText(String.valueOf(accelerometerListener.yzAngle));
+            handler.postDelayed(this, 500);
+
+            if (networkTask != null) {
+                Exception e = networkTask.GetException();
+
+                if (e != null)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        }
+    };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +61,8 @@ public class MainActivity extends Activity
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometerListener = new AccelerometerListener(sensorManager);
         networkTask = null;
+
+        runnable.run();
 
         buttonRefresh.setOnClickListener(new OnClickListener()
         {
@@ -61,6 +93,9 @@ public class MainActivity extends Activity
         editIp = (EditText) findViewById(R.id.editIp);
         editPort = (EditText) findViewById(R.id.editPort);
         editInterval = (EditText) findViewById(R.id.editInterval);
+        textViewXyValue = (TextView) findViewById(R.id.textViewXyValue);
+        textViewXzValue = (TextView) findViewById(R.id.textViewXzValue);
+        textViewYzValue = (TextView) findViewById(R.id.textViewYzValue);
         editIp.setText("192.168.100.3");
         editPort.setText("11000");
         editInterval.setText("100");

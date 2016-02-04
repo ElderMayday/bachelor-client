@@ -15,7 +15,7 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="IP Address"
-            android:id="@+id/textView" />
+            android:id="@+id/textViewIp" />
 
         <EditText
             android:id="@+id/editIp"
@@ -36,7 +36,7 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Port"
-            android:id="@+id/textView2" />
+            android:id="@+id/textViewPort" />
 
         <EditText
             android:id="@+id/editPort"
@@ -57,7 +57,7 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Interval"
-            android:id="@+id/textView3" />
+            android:id="@+id/textViewInterval" />
 
         <EditText
             android:id="@+id/editInterval"
@@ -77,5 +77,70 @@
             android:layout_height="wrap_content"
             android:text="Start"
             android:id="@+id/buttonRefresh" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="XY angle"
+            android:id="@+id/textViewXyLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewXyValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="XZ angle"
+            android:id="@+id/textViewXzLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewXzValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="YZ angle"
+            android:id="@+id/textViewYzLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewYzValue" />
     </LinearLayout>
 </LinearLayout>

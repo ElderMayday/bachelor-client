@@ -11,11 +11,21 @@ import android.hardware.SensorManager;
 public class AccelerometerListener implements SensorEventListener {
 
     protected float xyAngle;
+    protected float xzAngle;
+    protected float yzAngle;
     protected SensorManager sensorManager;
     protected Sensor accelerometer;
 
     public float GetXyAngle() {
         return xyAngle;
+    }
+
+    public float GetXzAngle() {
+        return xzAngle;
+    }
+
+    public float GetYzAngle() {
+        return yzAngle;
     }
 
     public AccelerometerListener(SensorManager _sensorManager) {
@@ -31,5 +41,7 @@ public class AccelerometerListener implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         xyAngle = event.values[0];
+        xzAngle = event.values[1];
+        yzAngle = event.values[2];
     }
 }
