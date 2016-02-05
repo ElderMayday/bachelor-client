@@ -10,23 +10,31 @@ import android.hardware.SensorManager;
  */
 public class AccelerometerListener implements SensorEventListener {
 
-    protected float xyAngle;
-    protected float xzAngle;
-    protected float yzAngle;
+    protected float xyAcc; // Acceleration to z;
+    protected float xzAcc; // Acceleration to y;
+    protected float yzAcc; // Acceleration to x;
+
+    protected double xyAngle;
+    protected boolean xyValid; // is in XY plane
+
     protected SensorManager sensorManager;
     protected Sensor accelerometer;
 
-    public float GetXyAngle() {
-        return xyAngle;
+    public float GetXyAcc() {
+        return xyAcc;
     }
 
-    public float GetXzAngle() {
-        return xzAngle;
+    public float GetXzAcc() {
+        return xzAcc;
     }
 
-    public float GetYzAngle() {
-        return yzAngle;
+    public float GetYzAcc() {
+        return yzAcc;
     }
+
+    public double GetXyAngle() { return xyAngle; }
+
+    public boolean GetXyValid() { return xyValid; }
 
     public AccelerometerListener(SensorManager _sensorManager) {
         sensorManager = _sensorManager;
@@ -40,8 +48,29 @@ public class AccelerometerListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        xyAngle = event.values[0];
-        xzAngle = event.values[1];
-        yzAngle = event.values[2];
+        xyAcc = event.values[0];
+        xzAcc = event.values[1];
+        yzAcc = event.values[2];
+
+        double a1 = xyAcc;
+        double a2 = xzAcc;
+        double a3 = yzAcc;
+
+        double length = Math.sqrt(a1 * a1 + a2 * a2 + a3 * a3); // total length of acceleration vector
+
+        a1 = a1 / length;
+        a2 = a2 / length;
+        a3 = a3 / length;
+
+        if (Math.abs(a3) <= 0.7) {
+            xyAngle = Math.toDegrees(Math.acos(a1));
+            xyValid = true;
+
+            if (a2 < 0)
+                xyAngle *= -1;
+        }
+        else {
+            xyValid = false;
+        }
     }
 }

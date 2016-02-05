@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends Activity
 {
     private Button buttonRefresh;
@@ -26,17 +23,25 @@ public class MainActivity extends Activity
     private TextView textViewXyValue;
     private TextView textViewXzValue;
     private TextView textViewYzValue;
+    private TextView textViewXyAngleValue;
 
     private SensorManager sensorManager;
     private NetworkTask networkTask;
     private AccelerometerListener accelerometerListener;
 
     private Handler handler = new Handler();
+
     private Runnable runnable = new Runnable() {
         public void run() {
-            textViewXyValue.setText(String.valueOf(accelerometerListener.xyAngle));
-            textViewXzValue.setText(String.valueOf(accelerometerListener.xzAngle));
-            textViewYzValue.setText(String.valueOf(accelerometerListener.yzAngle));
+            textViewXyValue.setText(String.valueOf(accelerometerListener.xyAcc));
+            textViewXzValue.setText(String.valueOf(accelerometerListener.xzAcc));
+            textViewYzValue.setText(String.valueOf(accelerometerListener.yzAcc));
+
+            if (accelerometerListener.GetXyValid() == true)
+                textViewXyAngleValue.setText(String.valueOf(accelerometerListener.GetXyAngle()));
+            else
+                textViewXyAngleValue.setText("Set in XY plane");
+
             handler.postDelayed(this, 500);
 
             if (networkTask != null) {
@@ -96,6 +101,7 @@ public class MainActivity extends Activity
         textViewXyValue = (TextView) findViewById(R.id.textViewXyValue);
         textViewXzValue = (TextView) findViewById(R.id.textViewXzValue);
         textViewYzValue = (TextView) findViewById(R.id.textViewYzValue);
+        textViewXyAngleValue = (TextView) findViewById(R.id.textViewXyAngleValue);
         editIp.setText("192.168.100.3");
         editPort.setText("11000");
         editInterval.setText("100");

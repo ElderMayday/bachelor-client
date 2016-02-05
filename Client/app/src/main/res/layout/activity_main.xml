@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="XY angle"
+            android:text="XY acceleration"
             android:id="@+id/textViewXyLabel" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="XZ angle"
+            android:text="XZ acceleration"
             android:id="@+id/textViewXzLabel" />
 
         <TextView
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="YZ angle"
+            android:text="YZ acceleration"
             android:id="@+id/textViewYzLabel" />
 
         <TextView
@@ -142,5 +142,26 @@
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textViewYzValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="XY angle"
+            android:id="@+id/textViewXyAngleLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewXyAngleValue" />
     </LinearLayout>
 </LinearLayout>

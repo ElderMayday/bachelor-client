@@ -52,10 +52,13 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
 
             isOperating = true;
             while (isOperating) {
-                String s = "";
-                s += "<" + String.valueOf(accelerometerListener.GetXyAngle()) + ";" +
-                        String.valueOf(accelerometerListener.GetXzAngle()) + ";" +
-                        String.valueOf(accelerometerListener.GetYzAngle()) + ">\n";
+                String s;
+
+                if (accelerometerListener.GetXyValid() == true)
+                    s = "<" + String.valueOf(accelerometerListener.GetXyAngle() + ">\n");
+                else
+                    s = "<not_in_xy>\n";
+
                 outToServer.print(s);
                 outToServer.flush();
                 Thread.sleep(interval);
