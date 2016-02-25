@@ -54,10 +54,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
             while (isOperating) {
                 String s;
 
-                if (accelerometerListener.GetXyValid() == true)
-                    s = "<" + String.valueOf(accelerometerListener.GetXyAngle() + ">\n");
-                else
-                    s = "<not_in_xy>\n";
+                s = "<" + String.valueOf(accelerometerListener.GetPitch() + ";" + accelerometerListener.GetRoll() + ">\n");
 
                 outToServer.print(s);
                 outToServer.flush();

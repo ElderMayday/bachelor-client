@@ -91,15 +91,15 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="XY acceleration"
-            android:id="@+id/textViewXyLabel" />
+            android:text="X acceleration"
+            android:id="@+id/textViewXLabel" />
 
         <TextView
             android:layout_width="400px"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewXyValue" />
+            android:id="@+id/textViewXValue" />
     </LinearLayout>
 
     <LinearLayout
@@ -112,15 +112,15 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="XZ acceleration"
-            android:id="@+id/textViewXzLabel" />
+            android:text="Y acceleration"
+            android:id="@+id/textViewYLabel" />
 
         <TextView
             android:layout_width="400px"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewXzValue" />
+            android:id="@+id/textViewYValue" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,15 +133,15 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="YZ acceleration"
-            android:id="@+id/textViewYzLabel" />
+            android:text="Z acceleration"
+            android:id="@+id/textViewZLabel" />
 
         <TextView
             android:layout_width="400px"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewYzValue" />
+            android:id="@+id/textViewZValue" />
     </LinearLayout>
 
     <LinearLayout
@@ -154,14 +154,35 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="XY angle"
-            android:id="@+id/textViewXyAngleLabel" />
+            android:text="Pitch"
+            android:id="@+id/textViewPitchLabel" />
 
         <TextView
             android:layout_width="400px"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewXyAngleValue" />
+            android:id="@+id/textViewPitchValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Roll"
+            android:id="@+id/textViewRollLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewRollValue" />
     </LinearLayout>
 </LinearLayout>

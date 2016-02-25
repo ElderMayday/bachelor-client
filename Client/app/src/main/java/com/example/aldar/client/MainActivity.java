@@ -20,10 +20,11 @@ public class MainActivity extends Activity
     private EditText editIp;
     private EditText editPort;
     private EditText editInterval;
-    private TextView textViewXyValue;
-    private TextView textViewXzValue;
-    private TextView textViewYzValue;
-    private TextView textViewXyAngleValue;
+    private TextView textViewXValue;
+    private TextView textViewYValue;
+    private TextView textViewZValue;
+    private TextView textViewPitchValue;
+    private TextView textViewRollValue;
 
     private SensorManager sensorManager;
     private NetworkTask networkTask;
@@ -33,14 +34,12 @@ public class MainActivity extends Activity
 
     private Runnable runnable = new Runnable() {
         public void run() {
-            textViewXyValue.setText(String.valueOf(accelerometerListener.xyAcc));
-            textViewXzValue.setText(String.valueOf(accelerometerListener.xzAcc));
-            textViewYzValue.setText(String.valueOf(accelerometerListener.yzAcc));
+            textViewXValue.setText(String.valueOf(accelerometerListener.xAcc));
+            textViewYValue.setText(String.valueOf(accelerometerListener.yAcc));
+            textViewZValue.setText(String.valueOf(accelerometerListener.zAcc));
 
-            if (accelerometerListener.GetXyValid() == true)
-                textViewXyAngleValue.setText(String.valueOf(accelerometerListener.GetXyAngle()));
-            else
-                textViewXyAngleValue.setText("Set in XY plane");
+            textViewPitchValue.setText(String.valueOf(accelerometerListener.GetPitch()));
+            textViewRollValue.setText(String.valueOf(accelerometerListener.GetRoll()));
 
             handler.postDelayed(this, 500);
 
@@ -95,13 +94,17 @@ public class MainActivity extends Activity
 
     private void setGUI() {
         buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
+
         editIp = (EditText) findViewById(R.id.editIp);
         editPort = (EditText) findViewById(R.id.editPort);
         editInterval = (EditText) findViewById(R.id.editInterval);
-        textViewXyValue = (TextView) findViewById(R.id.textViewXyValue);
-        textViewXzValue = (TextView) findViewById(R.id.textViewXzValue);
-        textViewYzValue = (TextView) findViewById(R.id.textViewYzValue);
-        textViewXyAngleValue = (TextView) findViewById(R.id.textViewXyAngleValue);
+
+        textViewXValue = (TextView) findViewById(R.id.textViewXValue);
+        textViewYValue = (TextView) findViewById(R.id.textViewYValue);
+        textViewZValue = (TextView) findViewById(R.id.textViewZValue);
+        textViewPitchValue = (TextView) findViewById(R.id.textViewPitchValue);
+        textViewRollValue = (TextView) findViewById(R.id.textViewRollValue);
+
         editIp.setText("192.168.100.3");
         editPort.setText("11000");
         editInterval.setText("100");
