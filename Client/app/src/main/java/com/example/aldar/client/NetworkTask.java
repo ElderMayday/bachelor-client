@@ -44,6 +44,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
         isOperating = false;
     }
 
+    @Override
     protected Void doInBackground(Void... urls) {
         try {
             exception = null;
@@ -54,7 +55,9 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
             while (isOperating) {
                 String s;
 
-                s = "<" + String.valueOf(sensorListener.GetPitch() + ";" + sensorListener.GetRoll() + ">\n");
+                s = "<" + String.valueOf(sensorListener.GetPitch()
+                        + ";" + sensorListener.GetRoll()
+                        + ";" + sensorListener.GetYaw() + ">\n");
 
                 outToServer.print(s);
                 outToServer.flush();

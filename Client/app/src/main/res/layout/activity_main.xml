@@ -14,6 +14,45 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Proposed IP"
+            android:id="@+id/textViewIpProposedLabel" />
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textViewIpProposedValue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/buttonSearch" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copy"
+            android:id="@+id/buttonCopy" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="IP Address"
             android:id="@+id/textViewIp" />
 
@@ -26,7 +65,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -47,7 +86,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -68,7 +107,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout6"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -82,7 +121,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout7"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -103,7 +142,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/linearLayout8"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -124,7 +163,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout7"
+        android:id="@+id/linearLayout9"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -145,7 +184,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout8"
+        android:id="@+id/linearLayout10"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -166,7 +205,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout9"
+        android:id="@+id/linearLayout11"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -187,7 +226,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout10"
+        android:id="@+id/linearLayout12"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 

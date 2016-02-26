@@ -2,7 +2,6 @@ package com.example.aldar.client;
 
 import android.app.Activity;
 import android.content.Context;
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,14 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class MainActivity extends Activity
 {
     private Button buttonRefresh;
+    private Button buttonSearch;
+    private Button buttonCopy;
+
     private EditText editIp;
     private EditText editPort;
     private EditText editInterval;
+
+    private TextView textViewIpProposedValue;
     private TextView textViewXValue;
     private TextView textViewYValue;
     private TextView textViewZValue;
@@ -31,8 +33,10 @@ public class MainActivity extends Activity
     private TextView textViewYawValue;
 
     private SensorManager sensorManager;
-    private NetworkTask networkTask;
     private SensorListener sensorListener;
+
+    private NetworkTask networkTask;
+    private UdpTask udpTask;
 
     private Handler handler = new Handler();
 
@@ -46,7 +50,17 @@ public class MainActivity extends Activity
             textViewRollValue.setText(String.valueOf(sensorListener.GetRoll()));
             textViewYawValue.setText(String.valueOf(sensorListener.GetYaw()));
 
-            handler.postDelayed(this, 500);
+            if (udpTask != null) {
+                if (!udpTask.GetIpProposed().equals("none")) {
+                    textViewIpProposedValue.setText(udpTask.GetIpProposed());
+                    buttonSearch.setText("Search");
+                    buttonCopy.setEnabled(true);
+                    buttonRefresh.setEnabled(true);
+                    udpTask = null;
+                }
+            }
+
+            handler.postDelayed(this, 100);
 
             if (networkTask != null) {
                 Exception e = networkTask.GetException();
@@ -73,37 +87,62 @@ public class MainActivity extends Activity
 
         runnable.run();
 
-        buttonRefresh.setOnClickListener(new OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                if (networkTask == null)
-                {
+        buttonRefresh.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (networkTask == null) {
                     String ipAddress = editIp.getText().toString();
                     int port = Integer.parseInt(editPort.getText().toString());
                     int interval = Integer.parseInt(editInterval.getText().toString());
 
                     networkTask = new NetworkTask(sensorListener, ipAddress, port, interval);
                     networkTask.execute();
+
                     buttonRefresh.setText("Stop");
-                }
-                else
-                {
+                    buttonCopy.setEnabled(false);
+                    buttonSearch.setEnabled(false);
+                } else {
                     networkTask.Stop();
                     networkTask = null;
+
                     buttonRefresh.setText("Start");
+                    buttonCopy.setEnabled(true);
+                    buttonSearch.setEnabled(true);
                 }
+            }
+        });
+
+        buttonSearch.setOnClickListener(new OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                buttonSearch.setText("Searching");
+                buttonCopy.setEnabled(false);
+                buttonRefresh.setEnabled(false);
+
+                udpTask = new UdpTask();
+                udpTask.execute();
+            }
+        });
+
+        buttonCopy.setOnClickListener(new OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                editIp.setText(textViewIpProposedValue.getText());
             }
         });
     }
 
     private void setGUI() {
         buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
+        buttonSearch = (Button) findViewById(R.id.buttonSearch);
+        buttonCopy = (Button) findViewById(R.id.buttonCopy);
 
         editIp = (EditText) findViewById(R.id.editIp);
         editPort = (EditText) findViewById(R.id.editPort);
         editInterval = (EditText) findViewById(R.id.editInterval);
 
+        textViewIpProposedValue =  (TextView) findViewById(R.id.textViewIpProposedValue);
         textViewXValue = (TextView) findViewById(R.id.textViewXValue);
         textViewYValue = (TextView) findViewById(R.id.textViewYValue);
         textViewZValue = (TextView) findViewById(R.id.textViewZValue);
@@ -111,9 +150,9 @@ public class MainActivity extends Activity
         textViewRollValue = (TextView) findViewById(R.id.textViewRollValue);
         textViewYawValue = (TextView) findViewById(R.id.textViewYawValue);
 
-        editIp.setText("192.168.100.3");
+        editIp.setText("192.168.100.1");
         editPort.setText("11000");
-        editInterval.setText("100");
+        editInterval.setText("40");
     }
 
     @Override
