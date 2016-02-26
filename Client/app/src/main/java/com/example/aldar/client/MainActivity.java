@@ -2,6 +2,7 @@ package com.example.aldar.client;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends Activity
 {
     private Button buttonRefresh;
@@ -25,21 +28,23 @@ public class MainActivity extends Activity
     private TextView textViewZValue;
     private TextView textViewPitchValue;
     private TextView textViewRollValue;
+    private TextView textViewYawValue;
 
     private SensorManager sensorManager;
     private NetworkTask networkTask;
-    private AccelerometerListener accelerometerListener;
+    private SensorListener sensorListener;
 
     private Handler handler = new Handler();
 
     private Runnable runnable = new Runnable() {
         public void run() {
-            textViewXValue.setText(String.valueOf(accelerometerListener.xAcc));
-            textViewYValue.setText(String.valueOf(accelerometerListener.yAcc));
-            textViewZValue.setText(String.valueOf(accelerometerListener.zAcc));
+            textViewXValue.setText(String.valueOf(sensorListener.GetXAcc()));
+            textViewYValue.setText(String.valueOf(sensorListener.GetYAcc()));
+            textViewZValue.setText(String.valueOf(sensorListener.GetZAcc()));
 
-            textViewPitchValue.setText(String.valueOf(accelerometerListener.GetPitch()));
-            textViewRollValue.setText(String.valueOf(accelerometerListener.GetRoll()));
+            textViewPitchValue.setText(String.valueOf(sensorListener.GetPitch()));
+            textViewRollValue.setText(String.valueOf(sensorListener.GetRoll()));
+            textViewYawValue.setText(String.valueOf(sensorListener.GetYaw()));
 
             handler.postDelayed(this, 500);
 
@@ -63,7 +68,7 @@ public class MainActivity extends Activity
         setGUI();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        accelerometerListener = new AccelerometerListener(sensorManager);
+        sensorListener = new SensorListener(sensorManager);
         networkTask = null;
 
         runnable.run();
@@ -78,7 +83,7 @@ public class MainActivity extends Activity
                     int port = Integer.parseInt(editPort.getText().toString());
                     int interval = Integer.parseInt(editInterval.getText().toString());
 
-                    networkTask = new NetworkTask(accelerometerListener, ipAddress, port, interval);
+                    networkTask = new NetworkTask(sensorListener, ipAddress, port, interval);
                     networkTask.execute();
                     buttonRefresh.setText("Stop");
                 }
@@ -104,6 +109,7 @@ public class MainActivity extends Activity
         textViewZValue = (TextView) findViewById(R.id.textViewZValue);
         textViewPitchValue = (TextView) findViewById(R.id.textViewPitchValue);
         textViewRollValue = (TextView) findViewById(R.id.textViewRollValue);
+        textViewYawValue = (TextView) findViewById(R.id.textViewYawValue);
 
         editIp.setText("192.168.100.3");
         editPort.setText("11000");

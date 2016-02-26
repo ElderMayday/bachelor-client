@@ -12,7 +12,7 @@ import java.net.Socket;
 public class NetworkTask extends AsyncTask<Void, Void, Void> {
 
     protected boolean isOperating;
-    protected AccelerometerListener accelerometerListener;
+    protected SensorListener sensorListener;
     protected String ipAddress;
     protected int port;
     protected int interval;
@@ -24,9 +24,9 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
         return temp;
     }
 
-    public NetworkTask(AccelerometerListener _accelerometerListener, String _ipAddress, int _port, int _interval) {
-        if (_accelerometerListener != null)
-            accelerometerListener = _accelerometerListener;
+    public NetworkTask(SensorListener _sensorListener, String _ipAddress, int _port, int _interval) {
+        if (_sensorListener != null)
+            sensorListener = _sensorListener;
 
         ipAddress = _ipAddress;
         port = _port;
@@ -54,7 +54,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
             while (isOperating) {
                 String s;
 
-                s = "<" + String.valueOf(accelerometerListener.GetPitch() + ";" + accelerometerListener.GetRoll() + ">\n");
+                s = "<" + String.valueOf(sensorListener.GetPitch() + ";" + sensorListener.GetRoll() + ">\n");
 
                 outToServer.print(s);
                 outToServer.flush();
