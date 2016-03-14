@@ -17,6 +17,7 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
     protected int port;
     protected int interval;
     protected Exception exception;
+    protected boolean modeAm;
 
     public Exception GetException() {
         Exception temp = exception;
@@ -24,13 +25,14 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
         return temp;
     }
 
-    public NetworkTask(SensorListener _sensorListener, String _ipAddress, int _port, int _interval) {
+    public NetworkTask(SensorListener _sensorListener, String _ipAddress, int _port, int _interval, boolean _modeAm) {
         if (_sensorListener != null)
             sensorListener = _sensorListener;
 
         ipAddress = _ipAddress;
         port = _port;
         interval = _interval;
+        modeAm = _modeAm;
 
         isOperating = false;
         exception = null;
@@ -55,9 +57,19 @@ public class NetworkTask extends AsyncTask<Void, Void, Void> {
             while (isOperating) {
                 String s;
 
-                s = "<" + String.valueOf(sensorListener.GetPitch()
-                        + ";" + sensorListener.GetRoll()
-                        + ";" + sensorListener.GetYaw() + ">\n");
+                double pitch, roll, yaw;
+
+                if (modeAm) {
+                    s = "<" + String.valueOf(sensorListener.GetPitchAM()
+                            + ";" + sensorListener.GetRollAM()
+                            + ";" + sensorListener.GetYawAM() + ">\n");
+                }
+                else
+                {
+                    s = "<" + String.valueOf(sensorListener.GetPitchG()
+                            + ";" + sensorListener.GetRollG()
+                            + ";" + sensorListener.GetYawG() + ">\n");
+                }
 
                 outToServer.print(s);
                 outToServer.flush();
