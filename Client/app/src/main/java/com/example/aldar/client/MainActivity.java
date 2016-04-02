@@ -38,16 +38,18 @@ public class MainActivity extends Activity
     private TextView textViewGyroYawValue;
     private RadioButton radioAM;
 
-    private SensorManager sensorManager;
-    private SensorListener sensorListener;
+    private SensorManager sensorManager; // Менеджер датчиков
+    private SensorListener sensorListener; // Слушатель датчиков
 
-    private NetworkTask networkTask;
-    private UdpTask udpTask;
+    private NetworkTask networkTask; // Объект сетевой передачи данных
+    private UdpTask udpTask; // Объект получения UDP рассылки
+
+    private Handler handler;
 
 
-
-    private Handler handler = new Handler();
-
+    /**
+     * Обработчик выполнения периодической задачи
+     */
     private Runnable runnable = new Runnable() {
         public void run() {
             textViewXValue.setText(String.valueOf(sensorListener.GetXAcc()));
@@ -87,6 +89,10 @@ public class MainActivity extends Activity
         }
     };
 
+    /**
+     * Инициализация андроид-активности
+     * @param savedInstanceState
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -96,6 +102,7 @@ public class MainActivity extends Activity
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorListener = new SensorListener(sensorManager);
         networkTask = null;
+        handler = new Handler();
 
         runnable.run();
 
@@ -156,6 +163,9 @@ public class MainActivity extends Activity
         });
     }
 
+    /**
+     * Устанавливает представления графического интерфейса
+     */
     private void setGUI() {
         buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
         buttonSearch = (Button) findViewById(R.id.buttonSearch);

@@ -6,22 +6,27 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 /**
- * Created by Aldar on 26.02.2016.
+ * Поток принятия UDP рассылки
  */
-public class UdpTask extends AsyncTask<Void, Void, Void> {
+public final class UdpTask extends AsyncTask<Void, Void, Void> {
 
-    private String ipProposed;
-    private boolean mustWork;
-
-    public UdpTask()
-    {
+    /**
+     * Создаёт поток принятия UDP рассылки
+     */
+    public UdpTask() {
         mustWork = true;
         ipProposed = "none";
     }
 
     public String GetIpProposed() { return ipProposed; }
 
-    protected Void doInBackground(Void... urls) {
+
+
+    /**
+     * Метод-обработчик потока
+     * @return
+     */
+    protected Void doInBackground(Void... params) {
         byte[] messageChar = new byte[50];
         DatagramPacket packet = new DatagramPacket(messageChar, messageChar.length);
         DatagramSocket socket = null;
@@ -32,9 +37,9 @@ public class UdpTask extends AsyncTask<Void, Void, Void> {
             while (mustWork) {
                 socket.receive(packet);
 
-                String text = new String (messageChar, 0,packet.getLength());
+                String text = new String (messageChar, 0, packet.getLength());
 
-                if (text.equals("<server-request>")) {
+                if (serverCriteria(text)) {
                     ipProposed = packet.getAddress().toString();
                     ipProposed = ipProposed.replaceAll("[^0-9.]", "");
                     mustWork = false;
@@ -48,12 +53,39 @@ public class UdpTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+    /**
+     * Критерий получения сообщения от сервера
+     * @param text Полученный текст
+     * @return Флаг - результат проверки на критерий
+     */
+    protected boolean serverCriteria(String text) {
+        return text.equals("<server-request>");
+    }
+
+    /**
+     * Метод, выполняющийся до выполнения потока
+     */
     @Override
     protected void onPreExecute(){
     }
 
+    /**
+     * Метод, выполняющийся после выполнения потока
+     * @param feed
+     */
     @Override
     protected void onPostExecute(Void feed) {
-
     }
+
+
+
+    /**
+     * Результат - автоопределенный IP
+     */
+    private String ipProposed;
+
+    /**
+     * Флаг необходимости работы потока
+     */
+    private boolean mustWork;
 }
