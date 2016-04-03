@@ -94,11 +94,13 @@ public final class SensorListener implements SensorEventListener {
             pitchAM = Math.toDegrees(pitchAM);
             rollAM = Math.toDegrees(rollAM);
 
+            pitchAM = adjustAnglePeriod(pitchAM);
+            rollAM = adjustAnglePeriod(rollAM);
+
             gData = event.values.clone();
         }
 
-        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-        {
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] mData = new float[3];
             float[] rMat = new float[9];
             float[] iMat = new float[9];
@@ -106,24 +108,49 @@ public final class SensorListener implements SensorEventListener {
 
             mData = event.values.clone();
 
-            if (SensorManager.getRotationMatrix(rMat, iMat, gData, mData))
-            {
+            if (SensorManager.getRotationMatrix(rMat, iMat, gData, mData)) {
                 yawAM = (Math.toDegrees(SensorManager.getOrientation(rMat, orientation)[0]) + 360) % 360;
+                yawAM = adjustAnglePeriod(yawAM - 180.0);
             }
         }
 
-        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE)
-        {
+        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             double diff = 0.001 * (System.currentTimeMillis() - start);
 
             pitchG -= event.values[0] * 180.0 / Math.PI * diff;
             yawG -= event.values[1] * 180.0 / Math.PI * diff;
             rollG -= event.values[2] * 180.0 / Math.PI * diff;
 
+            if (yawG < - 180)
+                yawG += 360;
+
+            if (yawG > 180)
+                yawG -= 360;
+
+            pitchG = adjustAnglePeriod(pitchG);
+            rollG = adjustAnglePeriod(rollG);
+            //yawG = adjustAnglePeriod(yawG);
+
             start = System.currentTimeMillis();
         }
     }
 
+
+
+    /**
+     * Корректирует период угла на отрезок [-180;180]
+     * @param angle Исходный угол
+     * @return Скорректированный угол
+     */
+    private double adjustAnglePeriod(double angle)
+    {
+        //double a1 = (angle - 180.0);
+        //double a2 = a1 % 360.0;
+        //double a3 = a2 - 180.0;
+        //return (angle - 180.0) % 360.0 - 180.0;
+        //return a3;
+        return angle % 180.0;
+    }
 
 
     /**
