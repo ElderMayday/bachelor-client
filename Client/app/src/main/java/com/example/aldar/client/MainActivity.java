@@ -67,7 +67,7 @@ public class MainActivity extends Activity
             if (udpTask != null) {
                 if (!udpTask.GetIpProposed().equals("none")) {
                     textViewIpProposedValue.setText(udpTask.GetIpProposed());
-                    buttonSearch.setText("Search");
+                    buttonSearch.setText("Искать");
                     buttonCopy.setEnabled(true);
                     buttonRefresh.setEnabled(true);
                     udpTask = null;
@@ -119,14 +119,14 @@ public class MainActivity extends Activity
                     networkTask = new NetworkTask(sensorListener, ipAddress, port, interval, modeAm);
                     networkTask.execute();
 
-                    buttonRefresh.setText("Stop");
+                    buttonRefresh.setText("Стоп");
                     buttonCopy.setEnabled(false);
                     buttonSearch.setEnabled(false);
                 } else {
                     networkTask.Stop();
                     networkTask = null;
 
-                    buttonRefresh.setText("Start");
+                    buttonRefresh.setText("Запуск");
                     buttonCopy.setEnabled(true);
                     buttonSearch.setEnabled(true);
                 }
@@ -137,7 +137,7 @@ public class MainActivity extends Activity
         {
             public void onClick(View v)
             {
-                buttonSearch.setText("Searching");
+                buttonSearch.setText("Ищем");
                 buttonCopy.setEnabled(false);
                 buttonRefresh.setEnabled(false);
 

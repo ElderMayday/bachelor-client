@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Proposed IP"
+            android:text="Найденный IP"
             android:id="@+id/textViewIpProposedLabel" />
 
         <TextView
@@ -33,13 +33,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:text="Искать"
             android:id="@+id/buttonSearch" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Copy"
+            android:text="Скопировать"
             android:id="@+id/buttonCopy" />
     </LinearLayout>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="IP Address"
+            android:text="IP-адрес"
             android:id="@+id/textViewIp" />
 
         <EditText
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Port"
+            android:text="Порт"
             android:id="@+id/textViewPort" />
 
         <EditText
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Interval"
+            android:text="Интервал"
             android:id="@+id/textViewInterval" />
 
         <EditText
@@ -114,14 +114,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"
+            android:text="Запуск"
             android:id="@+id/buttonRefresh" />
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gauge"
+            android:text="Калибровать"
             android:id="@+id/buttonGauge"
             android:enabled="true" />
     </LinearLayout>
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="X acceleration"
+            android:text="X ускорение"
             android:id="@+id/textViewXLabel" />
 
         <TextView
@@ -159,7 +159,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Y acceleration"
+            android:text="Y ускорение"
             android:id="@+id/textViewYLabel" />
 
         <TextView
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Z acceleration"
+            android:text="Z ускорение"
             android:id="@+id/textViewZLabel" />
 
         <TextView
@@ -201,7 +201,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="AM - Pitch"
+            android:text="AM тангаж"
             android:id="@+id/textViewPitchLabel" />
 
         <TextView
@@ -222,7 +222,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="AM - Roll"
+            android:text="AM крен"
             android:id="@+id/textViewRollLabel" />
 
         <TextView
@@ -243,7 +243,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="AM - Yaw"
+            android:text="AM рысканье"
             android:id="@+id/textViewYawLabel" />
 
         <TextView
@@ -264,7 +264,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gyro - Pitch"
+            android:text="Гироскоп тангаж"
             android:id="@+id/textViewPitchGyroLabel" />
 
         <TextView
@@ -285,7 +285,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gyro - Roll"
+            android:text="Гироскоп крен"
             android:id="@+id/textViewRollGyroLabel" />
 
         <TextView
@@ -306,7 +306,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gyro - Yaw"
+            android:text="Гироскоп рысканье"
             android:id="@+id/textViewYawGyroLabel" />
 
         <TextView
@@ -331,14 +331,14 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accelerometer+Magnetometer"
+                android:text="Акселерометр+Магнетометр"
                 android:id="@+id/radioAM"
                 android:checked="true" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gyroscope"
+                android:text="Гироскоп"
                 android:id="@+id/radioG" />
         </RadioGroup>
 

@@ -5,6 +5,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import java.util.Objects;
+
 /**
  * Created by Aldar on 26.01.2016.
  */
@@ -44,8 +46,12 @@ public final class SensorListener implements SensorEventListener {
         sensor = this.sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
-        pitchAM = rollAM = yawAM = 0.0;
-        pitchG = rollG = yawG = 0.0;
+        mutex = new Object();
+
+        synchronized (mutex) {
+            pitchAM = rollAM = yawAM = 0.0;
+            pitchG = rollG = yawG = 0.0;
+        }
 
         start = System.currentTimeMillis();
     }
@@ -64,7 +70,9 @@ public final class SensorListener implements SensorEventListener {
      */
     public void GaugeGyro()
     {
-        pitchG = rollG = yawG = 0.0;
+        synchronized (mutex) {
+            pitchG = rollG = yawG = 0.0;
+        }
     }
 
     /**
@@ -88,14 +96,16 @@ public final class SensorListener implements SensorEventListener {
             z = z / length;
             y = y / length;
 
-            pitchAM = Math.asin(y);
-            rollAM = Math.asin(-z / Math.cos(pitchAM));
+            synchronized (mutex) {
+                pitchAM = Math.asin(y);
+                rollAM = Math.asin(-z / Math.cos(pitchAM));
 
-            pitchAM = Math.toDegrees(pitchAM);
-            rollAM = Math.toDegrees(rollAM);
+                pitchAM = Math.toDegrees(pitchAM);
+                rollAM = Math.toDegrees(rollAM);
 
-            pitchAM = adjustAnglePeriod(pitchAM);
-            rollAM = adjustAnglePeriod(rollAM);
+                pitchAM = adjustAnglePeriod(pitchAM);
+                rollAM = adjustAnglePeriod(rollAM);
+            }
 
             gData = event.values.clone();
         }
@@ -109,27 +119,30 @@ public final class SensorListener implements SensorEventListener {
             mData = event.values.clone();
 
             if (SensorManager.getRotationMatrix(rMat, iMat, gData, mData)) {
-                yawAM = (Math.toDegrees(SensorManager.getOrientation(rMat, orientation)[0]) + 360) % 360;
-                yawAM = adjustAnglePeriod(yawAM - 180.0);
+                synchronized (mutex) {
+                    yawAM = (Math.toDegrees(SensorManager.getOrientation(rMat, orientation)[0]) + 360) % 360;
+                    yawAM = adjustAnglePeriod(yawAM - 180.0);
+                }
             }
         }
 
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
             double diff = 0.001 * (System.currentTimeMillis() - start);
 
-            pitchG -= event.values[0] * 180.0 / Math.PI * diff;
-            yawG -= event.values[1] * 180.0 / Math.PI * diff;
-            rollG -= event.values[2] * 180.0 / Math.PI * diff;
+            synchronized (mutex) {
+                pitchG -= event.values[0] * 180.0 / Math.PI * diff;
+                yawG -= event.values[1] * 180.0 / Math.PI * diff;
+                rollG -= event.values[2] * 180.0 / Math.PI * diff;
 
-            if (yawG < - 180)
-                yawG += 360;
+                if (yawG < -180)
+                    yawG += 360;
 
-            if (yawG > 180)
-                yawG -= 360;
+                if (yawG > 180)
+                    yawG -= 360;
 
-            pitchG = adjustAnglePeriod(pitchG);
-            rollG = adjustAnglePeriod(rollG);
-            //yawG = adjustAnglePeriod(yawG);
+                pitchG = adjustAnglePeriod(pitchG);
+                rollG = adjustAnglePeriod(rollG);
+            }
 
             start = System.currentTimeMillis();
         }
@@ -144,11 +157,6 @@ public final class SensorListener implements SensorEventListener {
      */
     private double adjustAnglePeriod(double angle)
     {
-        //double a1 = (angle - 180.0);
-        //double a2 = a1 % 360.0;
-        //double a3 = a2 - 180.0;
-        //return (angle - 180.0) % 360.0 - 180.0;
-        //return a3;
         return angle % 180.0;
     }
 
@@ -171,5 +179,5 @@ public final class SensorListener implements SensorEventListener {
     private double pitchG, rollG, yawG; // Угловое положение согласно гироскопу
 
     private float[] gData = new float[3]; // Сохраненный массив данных акселерометра (для передачи в магнитометр)
-
+    private Object mutex;
 }
