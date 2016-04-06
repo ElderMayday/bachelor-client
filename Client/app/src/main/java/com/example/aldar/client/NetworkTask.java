@@ -2,12 +2,13 @@ package com.example.aldar.client;
 
 import android.os.AsyncTask;
 
-import com.example.aldar.client.Serizalizers.Serializer;
-import com.example.aldar.client.Serizalizers.SerializerCustom;
+import com.example.aldar.client.tests.Serializer;
+import com.example.aldar.client.tests.SerializerCustom;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+
 
 /**
  * Отправляет асинхронно данные гироскопа по TCP протоколу с некоторой периодичностью
