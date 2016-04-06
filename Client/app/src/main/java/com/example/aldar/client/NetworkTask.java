@@ -2,8 +2,8 @@ package com.example.aldar.client;
 
 import android.os.AsyncTask;
 
-import com.example.aldar.client.tests.Serializer;
-import com.example.aldar.client.tests.SerializerCustom;
+import com.example.aldar.client.serializer.Serializer;
+import com.example.aldar.client.serializer.SerializerCustom;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

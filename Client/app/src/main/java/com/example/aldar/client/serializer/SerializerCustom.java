@@ -1,4 +1,4 @@
-package com.example.aldar.client.tests;
+package com.example.aldar.client.serializer;
 
 /**
  * Сериализатор своих пакетов

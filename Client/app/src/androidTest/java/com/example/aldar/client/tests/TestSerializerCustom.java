@@ -2,6 +2,9 @@ package com.example.aldar.client.tests;
 
 import android.test.suitebuilder.annotation.SmallTest;
 
+import com.example.aldar.client.serializer.Serializer;
+import com.example.aldar.client.serializer.SerializerCustom;
+
 import junit.framework.TestCase;
 
 /**
