@@ -1,6 +1,7 @@
 package com.example.aldar.client;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.aldar.client.serializer.Serializer;
 import com.example.aldar.client.serializer.SerializerCustom;
@@ -18,19 +19,29 @@ public final class NetworkTask extends AsyncTask<Void, Void, Void> {
     /**
      * Создает объект отправки для дальнейшей передачи данных с заданными параметрами
      * @param _sensorListener Слушатель датчиков
-     * @param _ipAddress Целевой IP-адрес
-     * @param _port Целевой порт
+     * @param _socket Целевой сокет
      * @param _interval Интервал отправки
      * @param _modeAm
      */
+    public NetworkTask(SensorListener _sensorListener, Socket _socket, int _interval, boolean _modeAm) {
+        sensorListener = _sensorListener;
+
+        socket = _socket;
+        interval = _interval;
+        modeAm = _modeAm;
+
+        isOperating = false;
+        exception = null;
+    }
+
     public NetworkTask(SensorListener _sensorListener, String _ipAddress, int _port, int _interval, boolean _modeAm) {
         if (_sensorListener != null)
             sensorListener = _sensorListener;
 
         ipAddress = _ipAddress;
         port = _port;
-        interval = _interval;
         modeAm = _modeAm;
+        socket = null;
 
         isOperating = false;
         exception = null;
@@ -73,8 +84,13 @@ public final class NetworkTask extends AsyncTask<Void, Void, Void> {
         try {
             exception = null;
 
-            Socket socket = new Socket(ipAddress, port);
+            if (socket == null)
+                socket = new Socket(ipAddress, port);
+
             PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            sensorListener.GetPitchAM();
+
             Serializer serializer = new SerializerCustom();
 
             isOperating = true;
@@ -130,12 +146,17 @@ public final class NetworkTask extends AsyncTask<Void, Void, Void> {
     protected SensorListener sensorListener;
 
     /**
-     * Целевой IP-адрес
+     * Целевой сокет
+     */
+    protected Socket socket;
+
+    /**
+     * Целевой сокет
      */
     protected String ipAddress;
 
     /**
-     * Целевой порт
+     * Целевой сокет
      */
     protected int port;
 

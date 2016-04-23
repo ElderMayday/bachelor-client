@@ -15,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.DatagramSocket;
+import java.net.Socket;
+
 public class MainActivity extends Activity
 {
     private Button buttonRefresh;
@@ -141,7 +144,14 @@ public class MainActivity extends Activity
                 buttonCopy.setEnabled(false);
                 buttonRefresh.setEnabled(false);
 
-                udpTask = new UdpTask();
+                try
+                {
+                    udpTask = new UdpTask(new DatagramSocket(11000));
+                }
+                catch (Exception e)
+                {
+                }
+
                 udpTask.execute();
             }
         });

@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * Created by Aldar on 26.01.2016.
  */
-public final class SensorListener implements SensorEventListener {
+public class SensorListener implements SensorEventListener {
 
     /**
      * Геттеры данных

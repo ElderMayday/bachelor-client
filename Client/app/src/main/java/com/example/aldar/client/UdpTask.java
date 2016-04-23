@@ -13,12 +13,14 @@ public final class UdpTask extends AsyncTask<Void, Void, Void> {
     /**
      * Создаёт поток принятия UDP рассылки
      */
-    public UdpTask() {
+    public UdpTask(DatagramSocket _socket) {
         mustWork = true;
         ipProposed = "none";
+        socket = _socket;
     }
 
     public String GetIpProposed() { return ipProposed; }
+
 
 
 
@@ -29,25 +31,20 @@ public final class UdpTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         byte[] messageChar = new byte[50];
         DatagramPacket packet = new DatagramPacket(messageChar, messageChar.length);
-        DatagramSocket socket = null;
 
         try {
-            socket = new DatagramSocket(11000);
+            socket.receive(packet);
 
-            while (mustWork) {
-                socket.receive(packet);
+            String text = new String(messageChar, 0, packet.getLength());
 
-                String text = new String (messageChar, 0, packet.getLength());
-
-                if (serverCriteria(text)) {
-                    ipProposed = packet.getAddress().toString();
-                    ipProposed = ipProposed.replaceAll("[^0-9.]", "");
-                    mustWork = false;
-                }
+            if (serverCriteria(text)) {
+                ipProposed = packet.getAddress().toString();
+                ipProposed = ipProposed.replaceAll("[^0-9.]", "");
+                mustWork = false;
             }
-        }
-        catch (Exception e)
-        {
+
+            socket.close();
+        } catch (Exception e) {
         }
 
         return null;
@@ -88,4 +85,7 @@ public final class UdpTask extends AsyncTask<Void, Void, Void> {
      * Флаг необходимости работы потока
      */
     private boolean mustWork;
+
+
+    private DatagramSocket socket;
 }
