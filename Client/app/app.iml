@@ -94,8 +94,8 @@
     <orderEntry type="library" exported="" scope="TEST" name="dexmaker-mockito-1.4" level="project" />
     <orderEntry type="library" exported="" name="mockito-all-1.10.19" level="project" />
     <orderEntry type="library" exported="" name="junit-4.12" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-dx-1.4" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="dexmaker-dx-1.4" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="dexmaker-1.4" level="project" />
   </component>
 </module>

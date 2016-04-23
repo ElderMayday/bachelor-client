@@ -89,15 +89,11 @@ public final class NetworkTask extends AsyncTask<Void, Void, Void> {
 
             PrintWriter outToServer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-            sensorListener.GetPitchAM();
-
             Serializer serializer = new SerializerCustom();
 
             isOperating = true;
             while (isOperating) {
                 String s;
-
-                double pitch, roll, yaw;
 
                 if (modeAm)
                     s = serializer.Do(sensorListener.GetPitchAM(), sensorListener.GetRollAM(), sensorListener.GetYawAM());
