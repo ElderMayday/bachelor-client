@@ -24,7 +24,7 @@ public class TestSerializerCustom extends TestCase {
 
         String result = serializer.Do(10.4, -2, 8);
 
-        assertEquals(result, "<10.4;-2.0;8.0>\n");
+        assertEquals(result, "<10,4;-2;8>\n");
     }
 
     @Override
